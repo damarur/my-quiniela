@@ -10,8 +10,8 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Game {
 
-    @Column(name = "order")
-    private Integer order;
+    @Column(name = "secuence_order")
+    private Integer secuenceOrder;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "local_team_id")

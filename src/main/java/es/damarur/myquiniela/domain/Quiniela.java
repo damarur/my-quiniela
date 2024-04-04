@@ -28,5 +28,6 @@ public class Quiniela {
     @ElementCollection(targetClass = Game.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "quiniela_games", joinColumns = @JoinColumn(name = "quiniela_id"))
     @Column(name = "games")
+    @Singular
     private List<Game> games;
 }
