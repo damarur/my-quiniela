@@ -15,7 +15,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
 @ActiveProfiles("test")
-class MyQuinielaApplicationTests {
+class MyQuinielaApplicationTest {
 
     @Autowired
     private TestRestTemplate restTemplate;

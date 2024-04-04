@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <included>
+        <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+        <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+        <springProfile name="local">
+            <logger name="org.springframework.beans" level="INFO"/>
+            <logger name="org.springframework.web.client" level="INFO"/>
+            <logger name="org.springframework.web.servlet.mvc" level="INFO"/>
+            <logger name="org.springframework.security" level="INFO"/>
+            <logger name="org.hibernate.type" level="INFO"/>
+            <logger name="org.hibernate.SQL" level="INFO"/>
+            <logger name="es.damarur" level="INFO"/>
+        </springProfile>
+
+        <springProfile name="production">
+            <logger name="org.springframework" level="ERROR"/>
+            <logger name="org.hibernate" level="OFF"/>
+            <logger name="es.damarur" level="INFO"/>
+        </springProfile>
+
+        <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+            <appender-ref ref="CONSOLE"/>
+            <queueSize>500</queueSize>
+            <maxFlushTime>1000</maxFlushTime>
+            <neverBlock>true</neverBlock>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="ASYNC"/>
+        </root>
+    </included>
+</configuration>
