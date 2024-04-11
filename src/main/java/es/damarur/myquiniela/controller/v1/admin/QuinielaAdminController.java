@@ -1,8 +1,12 @@
 package es.damarur.myquiniela.controller.v1.admin;
 
+import es.damarur.myquiniela.domain.Quiniela;
+import es.damarur.myquiniela.mapper.AdminMapper;
 import es.damarur.myquiniela.model.v1.admin.AdminQuinielaDTO;
 
 
+import es.damarur.myquiniela.service.QuinielaService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,21 +30,39 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", comments = "Generator version: 7.4.0")
 @Controller
-@RequestMapping("${openapi.myQuinielaAppOpenAPI30.base-path:}")
+@RequestMapping("/admin")
+@RequiredArgsConstructor
 public class QuinielaAdminController implements QuinielaAdmin {
 
     private final NativeWebRequest request;
-
-    @Autowired
-    public QuinielaAdminController(NativeWebRequest request) {
-        this.request = request;
-    }
+    private final QuinielaService quinielaService;
 
     @Override
     public Optional<NativeWebRequest> getRequest() {
         return Optional.ofNullable(request);
+    }
+
+    @Override
+    public ResponseEntity<AdminQuinielaDTO> getQuinielaById(Long quinielaId) {
+        return QuinielaAdmin.super.getQuinielaById(quinielaId);
+    }
+
+    @Override
+    public ResponseEntity<AdminQuinielaDTO> addQuiniela(AdminQuinielaDTO adminQuinielaDTO) {
+        Quiniela quiniela = AdminMapper.INSTANCE.fromAdminQuiniela(adminQuinielaDTO);
+        Quiniela storedQuiniela = quinielaService.addQuiniela(quiniela);
+        return ResponseEntity.ok(AdminMapper.INSTANCE.fromQuiniela(storedQuiniela));
+    }
+
+    @Override
+    public ResponseEntity<Void> updateQuiniela(Long quinielaId) {
+        return QuinielaAdmin.super.updateQuiniela(quinielaId);
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteQuiniela(Long quinielaId) {
+        return QuinielaAdmin.super.deleteQuiniela(quinielaId);
     }
 
 }
