@@ -3,15 +3,20 @@ package es.damarur.myquiniela.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Embeddable
-@Data
 @Builder
+@Data
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Game {
 
-    @Column(name = "secuence_order")
-    private Integer secuenceOrder;
+    @Column(name = "sequence_order")
+    private Integer sequenceOrder;
+
+    @Column(name = "date_time")
+    private LocalDateTime dateTime;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "local_team_id")

@@ -29,7 +29,7 @@ public class Usuario {
     @Builder.Default
     private Audit audit = new Audit();
 
-    @Column(name = "last_login_date")
-    private Instant lastLoginDate;
+    @Column(name = "last_login")
+    private Instant lastLogin;
 
 }

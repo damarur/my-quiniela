@@ -25,7 +25,7 @@ public class UsuarioRepositoryTest extends BaseRepositoryTest {
                 .email(EMAIL)
                 .passwordHash("some-hash")
                 .active(true)
-                .lastLoginDate(Instant.now())
+                .lastLogin(Instant.now())
                 .build();
         userRepository.save(usuario);
     }
