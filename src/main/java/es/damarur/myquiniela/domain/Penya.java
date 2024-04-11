@@ -24,11 +24,13 @@ public class Penya {
 
     @ElementCollection(targetClass = Integer.class)
     @CollectionTable(name = "penya_admins", joinColumns = @JoinColumn(name = "penya_id"))
+    @Column(name = "user_id")
     @Singular
     private List<Integer> admins;
 
     @ElementCollection(targetClass = Integer.class)
     @CollectionTable(name = "penya_users", joinColumns = @JoinColumn(name = "penya_id"))
+    @Column(name = "user_id")
     @Singular
     private List<Integer> users;
 
