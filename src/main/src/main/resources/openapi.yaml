@@ -1,0 +1,215 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: david.martinez.dev@gmail.com
+  title: My Quiniela App - OpenAPI 3.0
+  version: 1.0.0
+servers:
+- url: https://to-be-defined
+tags:
+- description: Everything about Quinielas
+  name: quiniela
+paths:
+  /quiniela:
+    post:
+      description: Add a new quiniela
+      operationId: addQuiniela
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Quiniela'
+        description: Create a new quiniela
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quiniela'
+          description: Successful operation
+        "400":
+          description: Invalid input
+        "422":
+          description: Validation exception
+      summary: Add a new quiniela
+      tags:
+      - quiniela
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: quiniela
+  /quiniela/{quinielaId}:
+    delete:
+      description: delete a quiniela
+      operationId: deleteQuiniela
+      parameters:
+      - description: ID of quiniela to return
+        explode: false
+        in: path
+        name: quinielaId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "400":
+          description: Invalid quiniela value
+      summary: Deletes a quiniela
+      tags:
+      - quiniela
+      x-accepts: application/json
+      x-tags:
+      - tag: quiniela
+    get:
+      description: Returns a single quiniela
+      operationId: getQuinielaById
+      parameters:
+      - description: ID of quiniela to return
+        explode: false
+        in: path
+        name: quinielaId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quiniela'
+          description: successful operation
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Quiniela not found
+      summary: Find quiniela by ID
+      tags:
+      - quiniela
+      x-accepts: application/json
+      x-tags:
+      - tag: quiniela
+    put:
+      description: ""
+      operationId: updateQuiniela
+      parameters:
+      - description: ID of quiniela to return
+        explode: false
+        in: path
+        name: quinielaId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "400":
+          description: Invalid input
+        "422":
+          description: Validation exception
+      summary: Updates a quiniela
+      tags:
+      - quiniela
+      x-accepts: application/json
+      x-tags:
+      - tag: quiniela
+components:
+  schemas:
+    Quiniela:
+      example:
+        date_time: date_time
+        games:
+        - result: result
+          date_time: date_time
+          local_team:
+            name: name
+            id: 1
+          local_goals: 5
+          visitor_team:
+            name: name
+            id: 1
+          visitor_goals: 5
+          order: 6
+        - result: result
+          date_time: date_time
+          local_team:
+            name: name
+            id: 1
+          local_goals: 5
+          visitor_team:
+            name: name
+            id: 1
+          visitor_goals: 5
+          order: 6
+        description: description
+        id: 0
+        title: title
+      properties:
+        id:
+          type: integer
+        date_time:
+          format: datetime
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        games:
+          items:
+            $ref: '#/components/schemas/Game'
+          type: array
+      required:
+      - date_time
+      - games
+      - title
+      type: object
+    Game:
+      example:
+        result: result
+        date_time: date_time
+        local_team:
+          name: name
+          id: 1
+        local_goals: 5
+        visitor_team:
+          name: name
+          id: 1
+        visitor_goals: 5
+        order: 6
+      properties:
+        order:
+          type: integer
+        date_time:
+          format: datetime
+          type: string
+        local_team:
+          $ref: '#/components/schemas/Team'
+        local_goals:
+          type: integer
+        visitor_team:
+          $ref: '#/components/schemas/Team'
+        visitor_goals:
+          type: integer
+        result:
+          type: string
+      required:
+      - date_time
+      - local_team
+      - order
+      - visitor_team
+      type: object
+    Team:
+      example:
+        name: name
+        id: 1
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+      required:
+      - name
+      type: object

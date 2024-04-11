@@ -1,0 +1,156 @@
+openapi: 3.0.3
+info:
+  title: My Quiniela App - OpenAPI 3.0
+  contact:
+    email: david.martinez.dev@gmail.com
+  version: 1.0.0
+servers:
+  - url: https://to-be-defined
+tags:
+  - name: quiniela
+    description: Everything about Quinielas
+paths:
+  /quiniela:
+    post:
+      tags:
+        - quiniela
+      summary: Add a new quiniela
+      description: Add a new quiniela
+      operationId: addQuiniela
+      requestBody:
+        description: Create a new quiniela
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Quiniela'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quiniela'
+        '400':
+          description: Invalid input
+        '422':
+          description: Validation exception
+  /quiniela/{quinielaId}:
+    get:
+      tags:
+        - quiniela
+      summary: Find quiniela by ID
+      description: Returns a single quiniela
+      operationId: getQuinielaById
+      parameters:
+        - name: quinielaId
+          in: path
+          description: ID of quiniela to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quiniela'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Quiniela not found
+    put:
+      tags:
+        - quiniela
+      summary: Updates a quiniela
+      description: ''
+      operationId: updateQuiniela
+      parameters:
+        - name: quinielaId
+          in: path
+          description: ID of quiniela to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid input
+        '422':
+          description: Validation exception
+    delete:
+      tags:
+        - quiniela
+      summary: Deletes a quiniela
+      description: delete a quiniela
+      operationId: deleteQuiniela
+      parameters:
+        - name: quinielaId
+          in: path
+          description: ID of quiniela to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid quiniela value
+
+components:
+  schemas:
+    Quiniela:
+      type: object
+      required:
+        - date_time
+        - title
+        - games
+      properties:
+        id:
+          type: integer
+        date_time:
+          type: string
+          format: datetime
+        title:
+          type: string
+        description:
+          type: string
+        games:
+          type: array
+          items:
+            $ref: '#/components/schemas/Game'
+
+    Game:
+      type: object
+      required:
+        - order
+        - date_time
+        - local_team
+        - visitor_team
+      properties:
+        order:
+          type: integer
+        date_time:
+          type: string
+          format: datetime
+        local_team:
+          $ref: '#/components/schemas/Team'
+        local_goals:
+          type: integer
+        visitor_team:
+          $ref: '#/components/schemas/Team'
+        visitor_goals:
+          type: integer
+        result:
+          type: string
+
+    Team:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
