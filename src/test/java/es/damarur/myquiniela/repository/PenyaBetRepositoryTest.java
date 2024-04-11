@@ -12,13 +12,12 @@ import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@ContextConfiguration(classes = UserBetRepository.class)
-public class UserBetRepositoryTest extends BaseRepositoryTest {
+@ContextConfiguration(classes = PenyaBetRepository.class)
+public class PenyaBetRepositoryTest extends BaseRepositoryTest {
 
     @Autowired
-    private UserBetRepository userBetRepository;
+    private PenyaBetRepository penyaBetRepository;
 
-    private Usuario usuario;
     private Penya penya;
     private Quiniela quiniela;
 
@@ -27,23 +26,22 @@ public class UserBetRepositoryTest extends BaseRepositoryTest {
         List<Team> teams = new ArrayList<>();
         teams.add(entityManager.persistAndFlush(TestData.getTeam("REAL MADRID")));
         teams.add(entityManager.persistAndFlush(TestData.getTeam("VALENCIA")));
-        usuario = entityManager.persistAndFlush(TestData.getUsuario());
+        Usuario usuario = entityManager.persistAndFlush(TestData.getUsuario());
         penya = entityManager.persistAndFlush(TestData.getPenya(usuario, usuario));
         quiniela = entityManager.persistAndFlush(TestData.getQuiniela(teams));
     }
 
     @Test
-    void saveUserBet() {
-        UserBet userBet = UserBet.builder()
-                .id(UserBetId.builder()
+    void saveGroupBet() {
+        PenyaBet penyaBet = PenyaBet.builder()
+                .id(PenyaBetId.builder()
                         .penyaId(penya.getId())
                         .quinielaId(quiniela.getId())
-                        .userId(usuario.getId())
                         .gameId(quiniela.getGames().get(0).getGameId())
                         .build())
-                .bet("1X")
+                .bet("X2")
                 .build();
-        userBet = userBetRepository.save(userBet);
-        assertThat(userBet).isNotNull();
+        penyaBet = penyaBetRepository.save(penyaBet);
+        assertThat(penyaBet).isNotNull();
     }
 }
