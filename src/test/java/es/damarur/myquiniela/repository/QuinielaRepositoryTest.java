@@ -10,7 +10,6 @@ import org.springframework.test.context.ContextConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.StreamSupport;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -19,18 +18,13 @@ public class QuinielaRepositoryTest extends BaseRepositoryTest {
 
     @Autowired
     private QuinielaRepository quinielaRepository;
-    @Autowired
-    private TeamRepository teamRepository;
 
     private List<Team> teams = new ArrayList<>();
 
     @BeforeEach
     void setUp() {
-        entityManager.persistAndFlush(TestData.getTeam("REAL MADRID"));
-        entityManager.persistAndFlush(TestData.getTeam("VALENCIA"));
-        teams = StreamSupport
-                .stream(teamRepository.findAll().spliterator(), false)
-                .toList();
+        teams.add(entityManager.persistAndFlush(TestData.getTeam("REAL MADRID")));
+        teams.add(entityManager.persistAndFlush(TestData.getTeam("VALENCIA")));
     }
 
     @Test

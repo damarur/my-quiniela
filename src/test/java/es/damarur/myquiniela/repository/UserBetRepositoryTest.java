@@ -12,14 +12,13 @@ import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@ContextConfiguration(classes = PenyaQuinielaRepository.class)
-public class PenyaQuinielaRepositoryTest extends BaseRepositoryTest {
-
-    private static final String EMAIL = "test@test.com";
+@ContextConfiguration(classes = UserBetRepository.class)
+public class UserBetRepositoryTest extends BaseRepositoryTest {
 
     @Autowired
-    private PenyaQuinielaRepository penyaQuinielaRepository;
+    private UserBetRepository userBetRepository;
 
+    private Usuario usuario;
     private Penya penya;
     private Quiniela quiniela;
 
@@ -28,22 +27,23 @@ public class PenyaQuinielaRepositoryTest extends BaseRepositoryTest {
         List<Team> teams = new ArrayList<>();
         teams.add(entityManager.persistAndFlush(TestData.getTeam("REAL MADRID")));
         teams.add(entityManager.persistAndFlush(TestData.getTeam("VALENCIA")));
-        Usuario usuario = entityManager.persistAndFlush(TestData.getUsuario());
+        usuario = entityManager.persistAndFlush(TestData.getUsuario());
         penya = entityManager.persistAndFlush(TestData.getPenya(usuario, usuario));
         quiniela = entityManager.persistAndFlush(TestData.getQuiniela(teams));
     }
 
     @Test
     void savePenyaQuiniela() {
-        PenyaQuiniela penyaQuiniela = PenyaQuiniela.builder()
-                .id(PenyaQuinielaId.builder()
+        UserBet userBet = UserBet.builder()
+                .id(UserBetId.builder()
                         .penyaId(penya.getId())
                         .quinielaId(quiniela.getId())
+                        .userId(usuario.getId())
+                        .gameId(quiniela.getGames().get(0).getGameId())
                         .build())
-                .doubles(penya.getDoubles())
-                .triples(penya.getTriples())
+                .bet("1X")
                 .build();
-        penyaQuiniela = penyaQuinielaRepository.save(penyaQuiniela);
-        assertThat(penyaQuiniela).isNotNull();
+        userBet = userBetRepository.save(userBet);
+        assertThat(userBet).isNotNull();
     }
 }

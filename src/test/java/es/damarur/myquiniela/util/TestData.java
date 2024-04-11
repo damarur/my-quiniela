@@ -26,7 +26,7 @@ public class TestData {
                 .description("Jornada 1 - 01/09/2024 - 14:00")
                 .dateTime(LocalDateTime.of(2024, 9, 1, 14, 0))
                 .game(Game.builder()
-                        .sequenceOrder(1)
+                        .gameId(1)
                         .local(teams.get(0))
                         .visitor(teams.get(1))
                         .build())

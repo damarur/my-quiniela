@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Game {
 
-    @Column(name = "sequence_order")
-    private Integer sequenceOrder;
+    @Column(name = "game_id")
+    private Integer gameId;
 
     @Column(name = "date_time")
     private LocalDateTime dateTime;
