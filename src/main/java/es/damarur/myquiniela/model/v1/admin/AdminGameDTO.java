@@ -29,7 +29,7 @@ public class AdminGameDTO implements Serializable {
 
   private Integer order;
 
-  private String dateTime;
+  private java.time.LocalDateTime dateTime;
 
   private AdminTeamDTO localTeam;
 
@@ -61,7 +61,7 @@ public class AdminGameDTO implements Serializable {
     this.order = order;
   }
 
-  public AdminGameDTO dateTime(String dateTime) {
+  public AdminGameDTO dateTime(java.time.LocalDateTime dateTime) {
     this.dateTime = dateTime;
     return this;
   }
@@ -70,14 +70,14 @@ public class AdminGameDTO implements Serializable {
    * Get dateTime
    * @return dateTime
   */
-  @NotNull 
+  @NotNull @Valid 
   @Schema(name = "date_time", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("date_time")
-  public String getDateTime() {
+  public java.time.LocalDateTime getDateTime() {
     return dateTime;
   }
 
-  public void setDateTime(String dateTime) {
+  public void setDateTime(java.time.LocalDateTime dateTime) {
     this.dateTime = dateTime;
   }
 

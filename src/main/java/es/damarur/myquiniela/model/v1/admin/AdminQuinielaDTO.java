@@ -32,7 +32,7 @@ public class AdminQuinielaDTO implements Serializable {
 
   private Integer id;
 
-  private String dateTime;
+  private java.time.LocalDateTime dateTime;
 
   private String title;
 
@@ -61,7 +61,7 @@ public class AdminQuinielaDTO implements Serializable {
     this.id = id;
   }
 
-  public AdminQuinielaDTO dateTime(String dateTime) {
+  public AdminQuinielaDTO dateTime(java.time.LocalDateTime dateTime) {
     this.dateTime = dateTime;
     return this;
   }
@@ -70,14 +70,14 @@ public class AdminQuinielaDTO implements Serializable {
    * Get dateTime
    * @return dateTime
   */
-  @NotNull 
+  @NotNull @Valid 
   @Schema(name = "date_time", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("date_time")
-  public String getDateTime() {
+  public java.time.LocalDateTime getDateTime() {
     return dateTime;
   }
 
-  public void setDateTime(String dateTime) {
+  public void setDateTime(java.time.LocalDateTime dateTime) {
     this.dateTime = dateTime;
   }
 
