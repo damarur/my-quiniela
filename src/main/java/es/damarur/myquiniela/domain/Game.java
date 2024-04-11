@@ -32,4 +32,7 @@ public class Game {
     @Column(name = "visitor_goals")
     private Integer visitorGoals;
 
+    @Column(name = "computed_result")
+    private String computedResult;
+
 }
