@@ -1,6 +1,7 @@
 package es.damarur.myquiniela.repository;
 
 import es.damarur.myquiniela.domain.Team;
+import es.damarur.myquiniela.util.TestData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,7 @@ class TeamRepositoryTest extends BaseRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        Team team = Team.builder()
-                .name("VALENCIA")
-                .build();
+        Team team = TestData.getTeam("VALENCIA");
         teamRepository.save(team);
     }
 
